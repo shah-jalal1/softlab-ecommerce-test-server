@@ -86,6 +86,8 @@ exports.userRegistrationDefault = async (req, res, next) => {
 
     try {
         const bodyData = req.body;
+
+        console.log(bodyData)
         let query;
         let token;
 
