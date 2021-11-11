@@ -7,6 +7,7 @@ const Admin = require('../models/admin');
 const User = require("../models/user");
 
 exports.adminLogin = async (req, res, next) => {
+    // console.log("admin login");
 
     const username = req.body.username;
     const password = req.body.password;

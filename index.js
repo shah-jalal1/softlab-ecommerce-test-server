@@ -5,12 +5,15 @@ const dotenv = require('dotenv').config();
 
 const test = require('./controller/test');
 
+const Product = require('./models/product');
+
 /**
  *  Router File Import
  */
 
 const userRoutes = require('./routes/user');
 const adminRoutes = require('./routes/admin');
+const productRoutes = require('./routes/product');
 
 
 const app = express();
@@ -20,14 +23,15 @@ app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb', extended: true}))
 
 app.use('/api', test);
-
+app.use('/api/admin', adminRoutes);
 app.use('/user', userRoutes);
+app.use('/api/product', productRoutes);
 
 
 
-// app.get('/', function (req, res) {
-//     res.send('hello world')
-//   })
+app.get('/', function (req, res) {
+    res.send('hello world')
+  })
 console.log(`mongodb://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@localhost:27017/${process.env.DB_NAME}?authSource=${process.env.AUTH_SOURCE}`,)
 
 mongoose.connect(
