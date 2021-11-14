@@ -14,6 +14,7 @@ const Product = require('./models/product');
 const userRoutes = require('./routes/user');
 const adminRoutes = require('./routes/admin');
 const productRoutes = require('./routes/product');
+const productBrandRoutes = require('./routes/product-brand');
 
 
 const app = express();
@@ -26,6 +27,7 @@ app.use('/api', test);
 app.use('/api/admin', adminRoutes);
 app.use('/user', userRoutes);
 app.use('/api/product', productRoutes);
+app.use('/api/brand', productBrandRoutes);
 
 
 
