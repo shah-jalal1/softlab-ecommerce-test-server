@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv').config();
 const test = require('./controller/test');
+const path = require('path');
 
 const Product = require('./models/product');
 
@@ -15,6 +16,7 @@ const adminRoutes = require('./routes/admin');
 const productRoutes = require('./routes/product');
 const productBrandRoutes = require('./routes/product-brand');
 const productCategoryRoutes = require('./routes/product-category');
+const imageFolderRoutes = require('./routes/image-folder');
 
 
 const app = express();
@@ -23,12 +25,15 @@ app.use(cors());
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb', extended: true}))
 
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 app.use('/api', test);
 app.use('/api/admin', adminRoutes);
 app.use('/user', userRoutes);
 app.use('/api/product', productRoutes);
 app.use('/api/brand', productBrandRoutes);
 app.use('/api/product-category', productCategoryRoutes);
+app.use('/api/image-folder', imageFolderRoutes);
 
 
 
