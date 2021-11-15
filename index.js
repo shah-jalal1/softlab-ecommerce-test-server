@@ -2,7 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv').config();
-
 const test = require('./controller/test');
 
 const Product = require('./models/product');
@@ -15,6 +14,7 @@ const userRoutes = require('./routes/user');
 const adminRoutes = require('./routes/admin');
 const productRoutes = require('./routes/product');
 const productBrandRoutes = require('./routes/product-brand');
+const productCategoryRoutes = require('./routes/product-category');
 
 
 const app = express();
@@ -28,6 +28,7 @@ app.use('/api/admin', adminRoutes);
 app.use('/user', userRoutes);
 app.use('/api/product', productRoutes);
 app.use('/api/brand', productBrandRoutes);
+app.use('/api/product-category', productCategoryRoutes);
 
 
 

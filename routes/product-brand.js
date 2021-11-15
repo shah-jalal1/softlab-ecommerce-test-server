@@ -14,6 +14,7 @@ router.get('/get-all-brands', controller.getAllBrands);
 // router.put('/edit-brand-by-brand',checkIpWhitelist,checkAdminAuth, controller.editBrandData);
 // router.post('/get-brands-by-search', controller.getParentCategoriesBySearch);
 router.delete('/delete-brand-by-id/:brandId',checkIpWhitelist,checkAdminAuth, controller.deleteBrandByBrandId);
+// router.delete('/delete-brand-by-id/:brandId',controller.deleteBrandByBrandId);
 
 // Export All router..
 module.exports = router;
