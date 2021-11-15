@@ -143,3 +143,57 @@ exports.deleteProductById = async (req, res, next) => {
     }
 
 }
+
+
+exports.updateProductById = async (req, res, next) => {
+
+    const data = req.body;
+    try {
+        await Product.findOneAndUpdate(
+            {_id: data._id},
+            {$set: data}
+        )
+
+        res.status(200).json({
+            message: 'Product Update Successfully!'
+        });
+    } catch (err) {
+        console.log(err);
+        if (!err.statusCode) {
+            err.statusCode = 500;
+            err.message = 'Something went wrong on database operation!'
+        }
+        next(err);
+    }
+}
+
+
+
+exports.getSingleProductById = async (req, res, next) => {
+    const id = req.params.id;
+
+    try {
+        const query = {_id: id};
+        const data = await Product.findOne(query)
+            // .populate('generic')
+            .populate('brand')
+            .populate('category')
+            // .populate('subCategory')
+            // .populate({
+            //     path: 'prices.unit',
+            //     model: 'UnitType',
+            //     select: 'name'
+            // })
+
+        res.status(200).json({
+            data: data,
+            message: 'Product fetch Successfully!'
+        });
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+            err.message = 'Something went wrong on database operation!'
+        }
+        next(err);
+    }
+}

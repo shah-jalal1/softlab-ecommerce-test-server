@@ -14,5 +14,7 @@ router.post('/add-single-product', controller.addSingleProduct);
 router.post('/get-all-products', controller.getAllProducts);
 router.delete('/delete-product-by-id/:id', controller.deleteProductById);
 // router.delete('/delete-product-by-id/:id',checkIpWhitelist,checkAdminAuth, checkAdminAuth, controller.deleteProductById);
-
+router.put('/edit-product-by-id', controller.updateProductById);
+// router.put('/edit-product-by-id',checkIpWhitelist,checkAdminAuth, checkAdminAuth, controller.updateProductById);
+router.get('/get-single-product-by-id/:id', controller.getSingleProductById);
 module.exports = router;
