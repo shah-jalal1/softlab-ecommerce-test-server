@@ -118,3 +118,28 @@ exports.getAllProducts = async (req, res, next) => {
         next(err);
     }
 }
+
+
+
+exports.deleteProductById = async (req, res, next) => {
+
+    const productId = req.params.id;
+
+    try {
+        const query = {_id: productId}
+        await Product.deleteOne(query)
+        // await Review.deleteOne({product: productId})
+
+        res.status(200).json({
+            message: 'Product deleted Successfully!'
+        });
+
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+            err.message = 'Something went wrong on database operation!'
+        }
+        next(err);
+    }
+
+}
