@@ -44,24 +44,24 @@ const schema = new Schema({
     //     required: false
     // },
 
-    // brand: {
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'ProductBrand'
-    // },
-    // brandSlug: {
-    //     type: String
-    // },
-    // category: {
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'ProductCategory'
-    // },
-    // categorySlug: {
-    //     type: String
-    // },
-    // subCategory: {
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'ProductSubCategory'
-    // },
+    brand: {
+        type: Schema.Types.ObjectId,
+        ref: 'ProductBrand'
+    },
+    brandSlug: {
+        type: String
+    },
+    category: {
+        type: Schema.Types.ObjectId,
+        ref: 'ProductCategory'
+    },
+    categorySlug: {
+        type: String
+    },
+    subCategory: {
+        type: Schema.Types.ObjectId,
+        ref: 'ProductSubCategory'
+    },
     // subCategorySlug: {
     //     type: String
     // },
@@ -72,24 +72,24 @@ const schema = new Schema({
     // genericSlug: {
     //     type: String
     // },
-    // // attributes: [{
-    // //     type: Schema.Types.ObjectId,
-    // //     ref: 'ProductAttribute'
-    // // }],
-    // // filterData: [{
-    // //     _id: {
-    // //         type: Schema.Types.ObjectId,
-    // //         ref: 'ProductAttribute'
-    // //     },
-    // //     attributeName: {
-    // //         type: String,
-    // //         required: false
-    // //     },
-    // //     attributeValues: {
-    // //         type: String,
-    // //         required: false
-    // //     }
-    // // }],
+    // attributes: [{
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'ProductAttribute'
+    // }],
+    // filterData: [{
+    //     _id: {
+    //         type: Schema.Types.ObjectId,
+    //         ref: 'ProductAttribute'
+    //     },
+    //     attributeName: {
+    //         type: String,
+    //         required: false
+    //     },
+    //     attributeValues: {
+    //         type: String,
+    //         required: false
+    //     }
+    // }],
     // tags: [{
     //     type: Schema.Types.ObjectId,
     //     ref: 'Tag'
@@ -114,22 +114,22 @@ const schema = new Schema({
         type: String,
         required: false
     },
-    // stockVisibility: {
-    //     type: Boolean,
-    //     required: false
-    // },
-    // productVisibility: {
-    //     type: Boolean,
-    //     required: false
-    // },
-    // deliveryPolicy: {
-    //     type: String,
-    //     required: false
-    // },
-    // paymentPolicy: {
-    //     type: String,
-    //     required: false
-    // },
+    stockVisibility: {
+        type: Boolean,
+        required: false
+    },
+    productVisibility: {
+        type: Boolean,
+        required: false
+    },
+    deliveryPolicy: {
+        type: String,
+        required: false
+    },
+    paymentPolicy: {
+        type: String,
+        required: false
+    },
     // warrantyPolicy: {
     //     type: String,
     //     required: false

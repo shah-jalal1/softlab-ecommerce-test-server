@@ -37,3 +37,84 @@ exports.addSingleProduct = async (req, res, next) => {
         next(err);
     }
 }
+
+
+exports.getAllProducts = async (req, res, next) => {
+    try {
+        let paginate = req.body.paginate;
+        let filter = req.body.filter;
+
+        let queryData;
+        let dataCount;
+
+        let priceRange = {
+            minPrice: 0,
+            maxPrice: 0
+        }
+        let minPrice;
+        let maxPrice;
+
+        let type = 'default';
+        let i = -1;
+
+        if (filter) {
+
+            if ( 'categorySlug' in filter) { type = 'cat'; i = index; };
+            // if ( 'tags' in filter) { type = 'tag'; i = index; };
+
+            if (type == 'cat') {
+                minPrice = Product.find(filter[i]).sort({price: 1}).limit(1);
+                maxPrice = Product.find(filter[i]).sort({price: -1}).limit(1);
+            }  else {
+                minPrice = Product.find().sort({price: 1}).limit(1);
+                maxPrice = Product.find().sort({price: -1}).limit(1);
+            }
+        } else {
+            minPrice = Product.find().sort({price: 1}).limit(1);
+            maxPrice = Product.find().sort({price: -1}).limit(1);
+        }
+
+        const temp1 = await minPrice;
+        const temp2 = await maxPrice;
+
+        priceRange.minPrice = temp1.length > 0 ? temp1[0].price : 0;
+        priceRange.maxPrice = temp2.length > 0 ? temp2[0].price : 0;
+
+        if (filter) {
+            queryData = Product.find(filter);
+        } else {
+            queryData = Product.find();
+        }
+
+        if (paginate) {
+            queryData.skip(Number(paginate.pageSize) * (Number(paginate.currentPage) - 1)).limit(Number(paginate.pageSize))
+        }
+
+        const data = await queryData
+            // .populate('attributes')
+            .populate('brand')
+            .populate('category')
+    
+            .sort({createdAt: -1})
+
+        if (filter) {
+            dataCount = await Product.countDocuments(filter);
+        } else {
+            dataCount = await Product.countDocuments();
+        }
+
+
+        res.status(200).json({
+            data: data,
+            priceRange: priceRange,
+            count: dataCount
+        });
+    } catch (err) {
+        console.log(err);
+        if (!err.statusCode) {
+            err.statusCode = 500;
+            err.message = 'Something went wrong on database operation!'
+        }
+        next(err);
+    }
+}

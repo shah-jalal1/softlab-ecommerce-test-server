@@ -242,11 +242,13 @@ exports.getCategoryByCategorySlug = async (req, res, next) => {
 // }
 
 exports.deleteCategoryByCategoryId = async (req, res, next) => {
+    // console.log(res);
 
     const categoryId = req.params.categoryId;
+    console.log(categoryId);
     const defaultCategory = await ProductCategory.findOne({readOnly: true});
     // const defaultSubCategory = await ProductSubCategory.findOne({readOnly: true});
-    await Product.updateMany({category: categoryId}, { $set : { category: defaultCategory._id, categorySlug: defaultCategory.categorySlug, subCategory: defaultSubCategory._id, subCategorySlug: defaultSubCategory.subCategorySlug } })
+    await Product.updateMany({category: categoryId}, { $set : { category: defaultCategory._id, categorySlug: defaultCategory.categorySlug, subCategory: defaultSubCategory._id, subCategorySlug: defaultSubCategory.subCategorySlug } });
     // await ProductSubCategory.deleteMany({category: categoryId});
     await ProductCategory.deleteOne({_id: categoryId});
 

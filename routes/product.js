@@ -11,5 +11,6 @@ const router = express.Router();
 
 router.post('/add-single-product', controller.addSingleProduct);
 // router.post('/add-single-product',checkIpWhitelist,checkAdminAuth, controller.addSingleProduct);
+router.post('/get-all-products', controller.getAllProducts);
 
 module.exports = router;

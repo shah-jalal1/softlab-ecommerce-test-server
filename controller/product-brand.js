@@ -198,10 +198,11 @@ exports.getParentCategoriesBySearch = async (req, res, next) => {
 exports.deleteBrandByBrandId = async (req, res, next) => {
 
     const brandId = req.params.brandId;
+    console.log(brandId);
 
     const defaultBrand = await Brand.findOne({readOnly: true});
 
-    await Product.updateMany({brand: brandId}, { $set: { brand: defaultBrand._id, brandSlug: defaultBrand.brandSlug } })
+    // await Product.updateMany({brand: brandId}, { $set: { brand: defaultBrand._id, brandSlug: defaultBrand.brandSlug } })
     await Brand.deleteOne({_id: brandId});
 
     try {
