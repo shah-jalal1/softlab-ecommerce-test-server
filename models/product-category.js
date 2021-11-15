@@ -31,10 +31,10 @@ const schema = new Schema({
         type: String,
         required: false
     },
-    attributes: [{
-        type: Schema.Types.ObjectId,
-        ref: 'ProductAttribute'
-    }]
+    // attributes: [{
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'ProductAttribute'
+    // }]
 }, {
     timestamps: true
 });

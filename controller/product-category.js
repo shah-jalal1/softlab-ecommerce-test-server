@@ -73,11 +73,11 @@ exports.getAllCategory = async (req, res, next) => {
         let select = req.query.select;
 
         let query = ProductCategory.find({readOnly: {$ne: true}});
-        if(select) {
-            query = query.select(select)
-        } else {
-            query.populate('attributes')
-        }
+        // if(select) {
+        //     query = query.select(select)
+        // } else {
+        //     query.populate('attributes')
+        // }
 
         if (pageSize && currentPage) {
             query.skip(pageSize * (currentPage - 1)).limit(pageSize)
