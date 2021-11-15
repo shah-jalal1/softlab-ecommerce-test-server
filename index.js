@@ -17,6 +17,7 @@ const productRoutes = require('./routes/product');
 const productBrandRoutes = require('./routes/product-brand');
 const productCategoryRoutes = require('./routes/product-category');
 const imageFolderRoutes = require('./routes/image-folder');
+const uploadRoutes = require('./routes/upload');
 
 
 const app = express();
@@ -34,7 +35,7 @@ app.use('/api/product', productRoutes);
 app.use('/api/brand', productBrandRoutes);
 app.use('/api/product-category', productCategoryRoutes);
 app.use('/api/image-folder', imageFolderRoutes);
-
+app.use('/api/upload', uploadRoutes);
 
 
 app.get('/', function (req, res) {
