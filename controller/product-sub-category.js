@@ -99,7 +99,7 @@ exports.getSubCategoryBySubCategoryId = async (req, res, next) => {
     try {
         const subCategoryId = req.params.subCategoryId;
         const productSubCategory = await ProductSubCategory.findOne({_id: subCategoryId})
-            .populate('attributes');
+            // .populate('attributes');
         res.status(200).json({
             data: productSubCategory,
             // message: 'Brand Added Successfully!'
@@ -180,7 +180,7 @@ exports.getSubCategoryByCategoryId = async (req, res, next) => {
 
         const categoryId = req.params.categoryId;
         const productSubCategory = await ProductSubCategory.find({category: categoryId})
-            .populate('attributes');
+            // .populate('attributes');
 
         res.status(200).json({
             data: productSubCategory,
