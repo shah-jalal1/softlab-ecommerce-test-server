@@ -58,10 +58,10 @@ const schema = new Schema({
     categorySlug: {
         type: String
     },
-    subCategory: {
-        type: Schema.Types.ObjectId,
-        ref: 'ProductSubCategory'
-    },
+    // subCategory: {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'ProductSubCategory'
+    // },
     // subCategorySlug: {
     //     type: String
     // },
