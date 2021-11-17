@@ -35,10 +35,10 @@ const schema = new Schema({
     // prices: [
     //     subSchema.priceWithUnit
     // ],
-    // quantity: {
-    //     type: Number,
-    //     required: false
-    // },
+    quantity: {
+        type: Number,
+        required: false
+    },
     // soldQuantity: {
     //     type: Number,
     //     required: false

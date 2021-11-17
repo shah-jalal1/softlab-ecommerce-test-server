@@ -38,6 +38,54 @@ exports.addSingleProduct = async (req, res, next) => {
     }
 }
 
+exports.getSingleProductBySlug = async (req, res, next) => {
+    const productSlug = req.params.slug;
+    try {
+        const query = {productSlug: productSlug};
+        const data = await Product.findOne(query)
+            .populate('brand')
+            .populate('category')
+            // .populate('subCategory')
+            // // .populate('generic')
+            // .populate({
+            //     path: 'prices.unit',
+            //     model: 'UnitType'
+            // })
+
+        res.status(200).json({
+            data: data,
+            message: 'Product fetch Successfully!'
+        });
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+            err.message = 'Something went wrong on database operation!'
+        }
+        next(err);
+    }
+}
+
+// exports.getSingleProductBySlug = async (req, res, next) => {
+//     const productSlug = req.params.slug;
+//     console.log("Product Slug: ", productSlug);
+//     try {
+//       const query = { productSlug: productSlug };
+//       console.log("query: ", query);
+//       const data = await Product.findOne(query);
+//       console.log("data", data);
+//       res.status(200).json({
+//         data: data,
+//         message: "Product fetch Successfully!",
+//       });
+//     } catch (err) {
+//       if (!err.statusCode) {
+//         err.statusCode = 500;
+//         err.message = "Something went wrong on database operation!";
+//       }
+//       next(err);
+//     }
+//   };
+
 
 exports.getAllProducts = async (req, res, next) => {
     try {

@@ -20,6 +20,7 @@ const imageFolderRoutes = require('./routes/image-folder');
 const uploadRoutes = require('./routes/upload');
 const galleryRoutes = require('./routes/gallery');
 const productSubCategoryRoutes = require('./routes/product-sub-category');
+const productUnitRoutes = require('./routes/product-unit-type');
 
 
 const app = express();
@@ -40,6 +41,8 @@ app.use('/api/image-folder', imageFolderRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/gallery', galleryRoutes);
 app.use('/api/product-sub-category', productSubCategoryRoutes);
+// app.use('/api/unit-type', productUnitRoutes);
+
 
 
 app.get('/', function (req, res) {
