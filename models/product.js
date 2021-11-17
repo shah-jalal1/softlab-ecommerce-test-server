@@ -32,9 +32,9 @@ const schema = new Schema({
         type: Number,
         required: false
     },
-    // prices: [
-    //     subSchema.priceWithUnit
-    // ],
+    prices: [
+        subSchema.priceWithUnit
+    ],
     quantity: {
         type: Number,
         required: false

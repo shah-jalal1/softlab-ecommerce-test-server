@@ -7,10 +7,10 @@ const schema = new Schema({
         type: String,
         required: true
     },
-    unitValue: {
-        type: Number,
-        required: true
-    },
+    // unitValue: {
+    //     type: Number,
+    //     required: true
+    // },
     unitQuantity: {
         type: Number,
         required: false

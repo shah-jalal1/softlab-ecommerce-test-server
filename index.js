@@ -41,7 +41,7 @@ app.use('/api/image-folder', imageFolderRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/gallery', galleryRoutes);
 app.use('/api/product-sub-category', productSubCategoryRoutes);
-// app.use('/api/unit-type', productUnitRoutes);
+app.use('/api/unit-type', productUnitRoutes);
 
 
 
