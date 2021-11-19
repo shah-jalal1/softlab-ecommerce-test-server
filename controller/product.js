@@ -47,10 +47,10 @@ exports.getSingleProductBySlug = async (req, res, next) => {
             .populate('category')
             // .populate('subCategory')
             // // .populate('generic')
-            // .populate({
-            //     path: 'prices.unit',
-            //     model: 'UnitType'
-            // })
+            .populate({
+                path: 'prices.unit',
+                model: 'UnitType'
+            })
 
         res.status(200).json({
             data: data,
@@ -168,6 +168,62 @@ exports.getAllProducts = async (req, res, next) => {
 }
 
 
+exports.getSpecificProductsByIds = async (req, res, next) => {
+
+    try {
+
+        const dataIds = req.body.ids;
+        const select = req.body.select;
+        const query = {_id: {$in: dataIds}}
+        const data = await Product.find(query)
+            .select(select ? select : '')
+            // .populate('attributes')
+            .populate('brand')
+            .populate('category')
+            .populate('subCategory')
+            .populate(
+                {
+                    path: 'prices.unit',
+                    model: 'UnitType'
+                }
+            )
+
+        res.status(200).json({
+            data: data
+        });
+
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+            err.message = 'Something went wrong on database operation!'
+        }
+        next(err);
+    }
+}
+
+exports.getSpecificProductsById = async (req, res, next) => {
+
+    try {
+
+        const dataIds = req.body.productId;
+        const query = {_id: {$in: dataIds}}
+        const data = await Product.find(query).populate('extraData');
+            // .select('_id name slug image price discountPercent availableQuantity author authorName');
+        console.log('this is compare list')
+        console.log(data)
+        res.status(200).json({
+            data: data
+        });
+
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+            err.message = 'Something went wrong on database operation!'
+        }
+        next(err);
+    }
+}
+
 
 exports.deleteProductById = async (req, res, next) => {
 
@@ -245,3 +301,7 @@ exports.getSingleProductById = async (req, res, next) => {
         next(err);
     }
 }
+
+
+
+

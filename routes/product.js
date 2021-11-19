@@ -20,4 +20,6 @@ router.get('/get-single-product-by-id/:id', controller.getSingleProductById);
 
 router.get('/get-single-product-by-slug/:slug', controller.getSingleProductBySlug);
 
+router.post('/get-specific-products-by-ids', controller.getSpecificProductsByIds);
+
 module.exports = router;

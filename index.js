@@ -21,6 +21,8 @@ const uploadRoutes = require('./routes/upload');
 const galleryRoutes = require('./routes/gallery');
 const productSubCategoryRoutes = require('./routes/product-sub-category');
 const productUnitRoutes = require('./routes/product-unit-type');
+const cartRoutes = require('./routes/cart');
+const shippingChargeRoutes = require('./routes/shipping-charge');
 
 
 const app = express();
@@ -42,6 +44,9 @@ app.use('/api/upload', uploadRoutes);
 app.use('/api/gallery', galleryRoutes);
 app.use('/api/product-sub-category', productSubCategoryRoutes);
 app.use('/api/unit-type', productUnitRoutes);
+app.use('/api/cart', cartRoutes);
+app.use('/api/shipping-charge', shippingChargeRoutes);
+
 
 
 
