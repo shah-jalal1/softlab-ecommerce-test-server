@@ -8,7 +8,7 @@ const Product = require('../models/product');
 
 exports.addToCart = async (req, res, next) => {
     const errors = validationResult(req);
-
+    console.log('error', errors);
     if (!errors.isEmpty()) {
         const error = new Error('Input Validation Error! Please complete required information.');
         error.statusCode = 422;
@@ -46,21 +46,16 @@ exports.addToCart = async (req, res, next) => {
 exports.getCartItemByUserId = async (req, res, next) => {
 
     const userId = req.userData.userId;
-    console.log(userId);
-
+    console.log('UserId', userId);
     try {
 
         const data = await User.findOne({_id: userId})
             .populate(
                 {
-                    path: 'carts -_id',
+                    path: 'carts _id',
                     populate: {
                         path: 'product',
                         select: 'productName productSlug categorySlug price prices discountType discountAmount  quantity images',
-                        // populate: {
-                        //     path: 'prices.unit',
-                        //     model: 'UnitType'
-                        // }
                     }
                 })
             .select('carts')

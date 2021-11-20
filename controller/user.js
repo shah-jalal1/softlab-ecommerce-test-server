@@ -1,18 +1,21 @@
 // Require Main Modules..
-const { validationResult } = require("express-validator");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+const {validationResult} = require('express-validator');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 // Require Post Schema from Model..
-const User = require("../models/user");
+const User = require('../models/user');
+// const Address = require('../models/address');
+const mongoose = require('mongoose');
 const Address = require("../models/address");
-const mongoose = require("mongoose");
+// const Coupon = require("../models/coupon");
+
 
 /**
  * User Registration
  * User Login
  */
 
-exports.userRegistrationDefault = async (req, res, next) => {
+ exports.userRegistrationDefault = async (req, res, next) => {
   const errors = validationResult(req);
   // Check Input validation Error with Error Handler..
   if (!errors.isEmpty()) {
@@ -147,8 +150,6 @@ exports.getLoginUserInfo = async (req, res, next) => {
         const loginUserId = req.userData.userId;
         const selectString = req.query.select;
 
-        console.log(loginUserId);
-
         let user;
 
         if (selectString) {
@@ -175,7 +176,6 @@ exports.getLoginUserInfo = async (req, res, next) => {
 exports.editLoginUserInfo = async (req, res, next) => {
     try {
         const loginUserId = req.userData.userId;
-        // console.log(loginUserId);
         await User.findOneAndUpdate(
             {_id: loginUserId},
             {$set: req.body}
