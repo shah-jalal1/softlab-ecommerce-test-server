@@ -46,6 +46,7 @@ exports.addToCart = async (req, res, next) => {
 exports.getCartItemByUserId = async (req, res, next) => {
 
     const userId = req.userData.userId;
+    console.log(userId);
 
     try {
 
@@ -56,10 +57,10 @@ exports.getCartItemByUserId = async (req, res, next) => {
                     populate: {
                         path: 'product',
                         select: 'productName productSlug categorySlug price prices discountType discountAmount  quantity images',
-                        populate: {
-                            path: 'prices.unit',
-                            model: 'UnitType'
-                        }
+                        // populate: {
+                        //     path: 'prices.unit',
+                        //     model: 'UnitType'
+                        // }
                     }
                 })
             .select('carts')
