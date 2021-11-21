@@ -15,79 +15,151 @@ const Address = require("../models/address");
  * User Login
  */
 
- exports.userRegistrationDefault = async (req, res, next) => {
-  const errors = validationResult(req);
-  // Check Input validation Error with Error Handler..
-  if (!errors.isEmpty()) {
-    const error = new Error(
-      "Input Validation Error! Please complete required information."
-    );
-    error.statusCode = 422;
-    error.data = errors.array();
-    next(error);
-    return;
-  }
+//  exports.userRegistrationDefault = async (req, res, next) => {
+//   const errors = validationResult(req);
+//   // Check Input validation Error with Error Handler..
+//   if (!errors.isEmpty()) {
+//     const error = new Error(
+//       "Input Validation Error! Please complete required information."
+//     );
+//     error.statusCode = 422;
+//     error.data = errors.array();
+//     next(error);
+//     return;
+//   }
 
-  try {
-    const bodyData = req.body;
-    const query = { username: bodyData.username };
+//   try {
+//     const bodyData = req.body;
+//     // const query = email: bodyData.email 
+//     const query = { username: bodyData.username };
+//     console.log(bodyData);
 
-    let token;
+//     let token;
 
-    const userExists = await User.findOne(query).lean();
+//     const userExists = await User.findOne({query}).lean();
+
+//     console.log(userExists)
 
     
 
-    if (userExists) {
-      token = jwt.sign(
-        {
-          username: userExists.username,
-          userId: userExists._id,
-        },
-        process.env.JWT_PRIVATE_KEY,
-        {
-          expiresIn: "90d",
-        }
-      );
+//     if (userExists) {
+//       token = jwt.sign(
+//         {
+//           username: userExists.username,
+//           userId: userExists._id,
+//         },
+//         process.env.JWT_PRIVATE_KEY,
+//         {
+//           expiresIn: "90d",
+//         }
+//       );
 
-      res.status(200).json({
-        message: "Welcome! Login Success",
-        success: true,
-        token: token,
-        expiredIn: 7776000000,
-      });
-    } else {
-      const user = new User(bodyData);
-      user.password = user.generateHash(bodyData.password);
-      const newUser = await user.save();
+//       res.status(200).json({
+//         message: "Welcome! Login Success",
+//         success: true,
+//         token: token,
+//         expiredIn: 7776000000,
+//       });
+//     } else {
+//       const user = new User(bodyData);
+//       user.password = user.generateHash(bodyData.password);
+//       const newUser = await user.save();
 
-      token = jwt.sign(
-        {
-          username: newUser.username,
-          userId: newUser._id,
-        },
-        process.env.JWT_PRIVATE_KEY,
-        {
-          expiresIn: "90d",
-        }
-      );
+//       token = jwt.sign(
+//         {
+//           username: newUser.username,
+//           userId: newUser._id,
+//         },
+//         process.env.JWT_PRIVATE_KEY,
+//         {
+//           expiresIn: "90d",
+//         }
+//       );
 
-      res.status(200).json({
-        message: "Registration Success.",
-        success: true,
-        token: token,
-        expiredIn: 7776000000,
-      });
-    }
-  } catch (err) {
-    console.log(err);
-    if (!err.statusCode) {
-      err.statusCode = 500;
-      err.message = "Something went wrong on database operation!";
-    }
-    next(err);
+//       res.status(200).json({
+//         message: "Registration Success.",
+//         success: true,
+//         token: token,
+//         expiredIn: 7776000000,
+//       });
+//     }
+//   } catch (err) {
+//     console.log(err);
+//     if (!err.statusCode) {
+//       err.statusCode = 500;
+//       err.message = "Something went wrong on database operation!";
+//     }
+//     next(err);
+//   }
+// };
+
+
+
+exports.userRegistrationDefault = async (req, res, next) => {
+  const errors = validationResult(req);
+  // Check Input validation Error with Error Handler..
+  if (!errors.isEmpty()) {
+      const error = new Error('Input Validation Error! Please complete required information.');
+      error.statusCode = 422;
+      error.data = errors.array();
+      next(error)
+      return;
   }
-};
+
+  try {
+      const bodyData = req.body;
+      let query;
+      let token;
+
+      if (bodyData.phoneNo) {
+          query = {username: bodyData.phoneNo}
+      } else {
+          query = {username: bodyData.email}
+      }
+
+      const userExists = await User.findOne(query).lean();
+
+      if (userExists) {
+          res.status(200).json({
+              message: `A user with this ${bodyData.phoneNo ? 'Phone' : 'Email'} no already registered!`,
+              success: false
+          });
+      } else {
+          const password = bodyData.password;
+          const hashedPass = bcrypt.hashSync(password, 8);
+          const registrationData = {...bodyData, ...{password: hashedPass}}
+          const user = new User(registrationData);
+
+          const newUser = await user.save();
+
+          token = jwt.sign({
+                  username: newUser.username,
+                  userId: newUser._id
+              },
+              process.env.JWT_PRIVATE_KEY, {
+                  expiresIn: '90d'
+              }
+          );
+
+          res.status(200).json({
+              message: 'Login Success',
+              success: true,
+              token: token,
+              expiredIn: 7776000000
+          })
+      }
+
+  } catch (err) {
+      console.log(err)
+      if (!err.statusCode) {
+          err.statusCode = 500;
+          err.message = 'Something went wrong on database operation!'
+      }
+      next(err);
+  }
+
+}
+
 
 // Login User..
 exports.userLoginDefault = async (req, res, next) => {
